@@ -16,15 +16,15 @@ import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.Size;
 
 @Entity
-@Table(name="usuarios")
-public class Usuario {
+@Table(name="administradores")
+public class Administrador {
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private Long id;
 	
 	@NotEmpty
-	@Size(min=4,max=50)
+	@Size(min=3,max=50)
 	private String nombre;
 	
 	@NotEmpty
@@ -35,27 +35,34 @@ public class Usuario {
 	@Size(min=5,max=50)
 	private String email;
 	
+	@NotEmpty
+	@Size(min=8,max=16)
+	private String contrasena;
+	
 	@Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date createdAt;
+	
 
 	@DateTimeFormat(pattern="yyyy-MM-dd")
 	private Date updatedAt;
 
-	public Usuario() {
+	public Administrador() {
 	}
 
-	public Usuario(String nombre, String apellido, String email) {
+	public Administrador(String nombre, String apellido, String email, String contrasena) {
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.contrasena = contrasena;
 	}
 
-	public Usuario(Long id, String nombre, String apellido, String email) {
+	public Administrador(Long id, String nombre, String apellido, String email, String contrasena) {
 		this.id = id;
 		this.nombre = nombre;
 		this.apellido = apellido;
 		this.email = email;
+		this.contrasena = contrasena;
 	}
 
 	public Long getId() {
@@ -90,6 +97,14 @@ public class Usuario {
 		this.email = email;
 	}
 
+	public String getContrasena() {
+		return contrasena;
+	}
+
+	public void setContrasena(String contrasena) {
+		this.contrasena = contrasena;
+	}
+
 	public Date getCreatedAt() {
 		return createdAt;
 	}
@@ -105,6 +120,7 @@ public class Usuario {
 	public void setUpdatedAt(Date updatedAt) {
 		this.updatedAt = updatedAt;
 	}
+	
 	
 	@PrePersist
 	protected void onCreate() {
