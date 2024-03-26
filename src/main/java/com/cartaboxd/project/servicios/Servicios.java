@@ -66,6 +66,10 @@ public class Servicios {
 	public void borrarPelicula(long id){
 		repoPelicula.deleteById(id);
 	}//Borra pelicula en base a su ID
+
+	public boolean existePelicula(String nombre){
+		return repoPelicula.existsByNombre(nombre);
+	}
 	
 	// Servicios para usuarios
 	public List<Usuario> todosUsuarios(){
