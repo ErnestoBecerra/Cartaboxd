@@ -10,7 +10,5 @@ import com.cartaboxd.project.modelos.Pelicula;
 @Repository
 public interface RepositorioPelicula extends CrudRepository<Pelicula,Long> {
     List<Pelicula> findAll();
-
     Pelicula save(Pelicula nuevaPelicula);
-
 }

@@ -9,6 +9,7 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.cartaboxd.project.modelos.Administrador;
 import com.cartaboxd.project.modelos.ListaPelicula;
@@ -84,10 +85,41 @@ public class ControladorAdmin {
 	}
 	
 	
-	 @GetMapping("/iniciar-sesion")
-	 public String mostrarFormularioInicioSesion(@ModelAttribute("usuario") Usuario usuario) {
-		 return "login-usuario.jsp";
+	
+	@GetMapping("/login-usuario")
+	public String loginUsuario() {
+		return "login-usuario.jsp";
+	}
+	
+	 @PostMapping("/iniciar-sesion")
+	 public String login(@RequestParam("email") String email,
+			 			 @RequestParam("password") String password) {
+		 Usuario usuarioLogin = s.login(email,password);
+		 if(usuarioLogin == null) {
+			 return "redirect:/inicio";
+		 }else {
+			 return "redirect:/inicio-usuario";
+		 }
 	 }
 
+	 @GetMapping("/login-admin")
+	 public String loginAdministrador() {
+		 return "login-admin.jsp";
+	 }
 	 
+	 @PostMapping("/iniciar-admin")
+	 public String loginAdmin(@RequestParam("email") String email,
+			 				  @RequestParam("password") String password) {
+		 Administrador adminLogin = s.loginParaAdmin(email,password);
+		 if(adminLogin == null) {
+			 return "redirect:/inicio";
+		 }else {
+			 return "redirect:/inicio-admin";
+		 }
+	 }
+	
+	 @GetMapping("/inicio-admin")
+	 public String inicioAdmin() {
+		 return "dashboard-administrador.jsp";
+	 }
 }

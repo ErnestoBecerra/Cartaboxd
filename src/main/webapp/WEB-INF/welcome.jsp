@@ -53,7 +53,7 @@
         				<p class="card-text">Si deseas ingresar como administrador, empieza con esta opción, valida tus
         				credenciales y continua trabajando.
         				</p>
-        				<a href="#" class="btn btn-primary">Iniciar sesión</a>
+        				<a href="/login-admin" class="btn btn-primary">Iniciar sesión</a>
       				</div>
    	 			</div>
   			</div>
@@ -64,7 +64,7 @@
         				<p class="card-text">Si deseas ingresar como vistante, empieza con esta opción, selecciona el
         					campo de tu preferencia.
 						</p>
-        				<a href="/iniciar-sesion" class="btn btn-primary">Iniciar sesión</a>
+        				<a href="/login-usuario" class="btn btn-primary">Iniciar sesión</a>
         				<a href="/nuevo-usuario" class="btn btn-primary">Registrarse</a>
       				</div>
     			</div>

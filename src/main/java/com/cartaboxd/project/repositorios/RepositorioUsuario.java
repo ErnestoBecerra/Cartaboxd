@@ -10,4 +10,5 @@ import com.cartaboxd.project.modelos.Usuario;
 @Repository
 public interface RepositorioUsuario extends CrudRepository<Usuario,Long>{
 	List<Usuario> findAll();
+	Usuario findByEmail(String email);
 }
