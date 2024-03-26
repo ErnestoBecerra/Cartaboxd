@@ -11,4 +11,6 @@ import com.cartaboxd.project.modelos.ResenaPelicula;
 public interface RepositorioResena extends CrudRepository<ResenaPelicula,Long> {
     List<ResenaPelicula> findAll();
     ResenaPelicula save(ResenaPelicula nuevaResenaPelicula);
+
+    List<ResenaPelicula> findByPeliculaId(Long peliculaId);
 }

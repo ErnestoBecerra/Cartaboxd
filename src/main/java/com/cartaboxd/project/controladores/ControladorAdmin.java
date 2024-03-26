@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.cartaboxd.project.modelos.Administrador;
 import com.cartaboxd.project.modelos.ListaPelicula;
 import com.cartaboxd.project.modelos.Pelicula;
+import com.cartaboxd.project.modelos.ResenaPelicula;
 import com.cartaboxd.project.modelos.Usuario;
 import com.cartaboxd.project.servicios.Servicios;
 
@@ -32,7 +33,9 @@ public class ControladorAdmin {
 	private Servicios s;
 	
 	@GetMapping("/inicio")
-	public String muestraInicio() {
+	public String muestraInicio(Model model) {
+		List<Pelicula> peliculas = s.mejoresPeliculas();
+		model.addAttribute("peliculas",peliculas);
 		return "welcome.jsp";
 	}
 	
@@ -60,20 +63,35 @@ public class ControladorAdmin {
 
 	@PostMapping("/registrar-pelicula")
 	public String crearPelicula(@Valid @ModelAttribute("pelicula") Pelicula pelicula,
-								BindingResult result) {
-		if(result.hasErrors()) {
-			return "create-pelicula.jsp";
-		} else {
-			s.guardarPelicula(pelicula);
-			return "redirect:/inicio-admin";
-		}
-	}
+                            BindingResult result,
+                            Model model) {
+    if (result.hasErrors()) {
+        return "create-pelicula.jsp";
+    } else {
+        // Validar si la película ya existe
+        boolean existePelicula = s.existePelicula(pelicula.getNombre());
+        
+        if (existePelicula) {
+            model.addAttribute("error", "La película ya existe");
+            return "create-pelicula.jsp";
+        } else {
+            s.guardarPelicula(pelicula);
+            return "redirect:/inicio-admin";
+        }
+    }
+}
 	
 	@GetMapping("/nueva-pelicula")
 	public String nuevaPelicula(@ModelAttribute("pelicula") Pelicula pelicula) {
 		return "create-pelicula.jsp";
 	}
 
+	@GetMapping("/buscar-peliculas")
+	public String buscarPeliculas(@RequestParam("nombre") String nombre, Model model){
+		List<Pelicula> peliculas = s.peliculasPorNombre(nombre);
+		model.addAttribute("peliculas", peliculas);
+		return "search.jsp";
+	}
 	@PostMapping("/peliculas")
 	public Pelicula registrarPelicula(@RequestParam("nombre") String nombre,
 										@RequestParam("descripcion")String descripcion,
@@ -88,19 +106,35 @@ public class ControladorAdmin {
 		
 	}
 
-	@PutMapping("/peliculas/{id}")
-	public Pelicula editarPelicula(@PathVariable long id,
-									@RequestParam("nombre") String nombre,
-									@RequestParam("descripcion")String descripcion,
-									@RequestParam("calificacion")float calificacion) {
-
-		Pelicula actualizada = new Pelicula(id, nombre, descripcion, calificacion);	
-		return s.guardarPelicula(actualizada);
+	@GetMapping("/editar-pelicula/{id}")
+	public String mostrarFormularioEdicion(@PathVariable Long id, Model model) {
+		// Obtener la película a editar
+		Pelicula pelicula = s.peliculaPorId(id);
+		
+		// Agregar la película al modelo
+		model.addAttribute("pelicula", pelicula);
+		
+		return "edit-pelicula.jsp";
 	}
 
+	@PutMapping("/peliculas/{id}")
+	public String editarPelicula(@PathVariable long id,
+                              @RequestParam("nombre") String nombre,
+                              @RequestParam("descripcion") String descripcion,
+                              @RequestParam("calificacion") float calificacion) {
+
+    Pelicula actualizada = new Pelicula(id, nombre, descripcion, calificacion); 
+    s.guardarPelicula(actualizada);
+    
+    // Redireccionar a la página "inicio-admin"
+    return "redirect:/inicio-admin";
+}
+
+
 	@DeleteMapping("/peliculas/{id}")
-	public void borrarPelicula(@PathVariable("id") long id){
+	public String borrarPelicula(@PathVariable("id") long id){
 		s.borrarPelicula(id);
+		return "redirect:/inicio-admin";
 	}
 	
 	@GetMapping("/nuevo-usuario")
@@ -136,8 +170,10 @@ public class ControladorAdmin {
 	}
 	
 	@GetMapping("/inicio-usuario")
-	public String inicioUsuarios(Model model) {
+	public String inicioUsuarios(Model model, Model model2) {
+		List<Pelicula> peliculas = s.todasPeliculas();
 		List<ListaPelicula> listas = s.todoListas();
+		model2.addAttribute("peliculas", peliculas);
 		model.addAttribute("listas",listas);
 		return "dashboard-usuario.jsp";
 	}
@@ -177,7 +213,40 @@ public class ControladorAdmin {
 	 }
 	
 	 @GetMapping("/inicio-admin")
-	 public String inicioAdmin() {
+	 public String inicioAdmin(Model model) {
+		List<Pelicula> peliculas = s.todasPeliculas();
+		model.addAttribute("peliculas",peliculas);
 		 return "dashboard-administrador.jsp";
 	 }
+
+
+	 //Reseñas
+	 @GetMapping("/nueva-resena")
+	 public String nuevaResena(@ModelAttribute("resenia") ResenaPelicula resenia,
+								@RequestParam("peliculaId") Long peliculaId,
+								Model model) {
+		 // Aquí deberías tener la lógica para obtener la película en función del ID
+		 Pelicula pelicula = s.peliculaPorId(peliculaId);
+		 model.addAttribute("pelicula", pelicula);
+		 return "create-resena.jsp";
+	 }
+	 
+	 
+
+	 @PostMapping("/registrar-resena")
+	 public String crearResena(@Valid @ModelAttribute("resenia") ResenaPelicula resenia,
+							   @RequestParam("peliculaId") Long peliculaId,
+							   BindingResult result) {
+		 if(result.hasErrors()) {
+			 return "create-resena.jsp";
+		 } else {
+			 // Llama al servicio para guardar la reseña, pasando el ID de la película
+			 s.guardarResena(resenia, peliculaId);
+			 return "redirect:/inicio-usuario";
+		 }
+	 }
+	 
+	 
+	
+
 }

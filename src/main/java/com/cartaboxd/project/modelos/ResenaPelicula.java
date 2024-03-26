@@ -4,8 +4,11 @@ import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -28,6 +31,8 @@ public class ResenaPelicula {
 	@Size(min=3,max=500)
     private String resena;
 
+    private float calificacion;
+    
     @Column(updatable=false)
 	@DateTimeFormat(pattern="yyyy-MM-dd")
     private Date createdAt;
@@ -35,29 +40,22 @@ public class ResenaPelicula {
     @DateTimeFormat(pattern="yyyy-MM-dd")
     private Date updatedAt;
 
-    @ManyToOne
-    @JoinColumn(name = "idUsuario", referencedColumnName = "id")
-    private Usuario usuario;
-
-    @ManyToOne
-    @JoinColumn(name = "idPelicula", referencedColumnName = "id")
-    private Pelicula pelicula;
+    @JsonBackReference(value="peliculas-json") //No mandamos
+    @Column(name = "pelicula_id")
+    private Long peliculaId;
 
     public ResenaPelicula() {
     }
 
-    public ResenaPelicula(long id, @NotEmpty @Size(min = 3, max = 500) String resena, Usuario usuario,
-            Pelicula pelicula) {
+    public ResenaPelicula(long id, String resena, long calificacion, Long peliculaId) {
         this.id = id;
         this.resena = resena;
-        this.usuario = usuario;
-        this.pelicula = pelicula;
+        this.peliculaId = peliculaId;
     }
 
-    public ResenaPelicula(@NotEmpty @Size(min = 3, max = 500) String resena, Usuario usuario, Pelicula pelicula) {
+    public ResenaPelicula(String resena, long calificacion, Long peliculaId) {
         this.resena = resena;
-        this.usuario = usuario;
-        this.pelicula = pelicula;
+        this.peliculaId = peliculaId;
     }
 
     public long getId() {
@@ -91,22 +89,15 @@ public class ResenaPelicula {
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
     }
-    
-    public Usuario getUsuario() {
-        return usuario;
+
+    public Long getPeliculaId() {
+        return peliculaId;
     }
 
-    public void setUsuario(Usuario usuario) {
-        this.usuario = usuario;
+    public void setPeliculaId(Long peliculaId) {
+        this.peliculaId = peliculaId;
     }
 
-    public Pelicula getPelicula() {
-        return pelicula;
-    }
-
-    public void setPelicula(Pelicula pelicula) {
-        this.pelicula = pelicula;
-    }
 	
     @PrePersist
 	protected void onCreate() {
@@ -116,5 +107,13 @@ public class ResenaPelicula {
 	protected void onUpdate() {
 		this.updatedAt = new Date();
 	}
+
+    public float getCalificacion() {
+        return calificacion;
+    }
+
+    public void setCalificacion(float calificacion) {
+        this.calificacion = calificacion;
+    }
     
 }

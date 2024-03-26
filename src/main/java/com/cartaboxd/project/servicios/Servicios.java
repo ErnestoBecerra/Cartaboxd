@@ -1,6 +1,7 @@
 package com.cartaboxd.project.servicios;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.cartaboxd.project.modelos.Administrador;
 import com.cartaboxd.project.modelos.ListaPelicula;
 import com.cartaboxd.project.modelos.Pelicula;
+import com.cartaboxd.project.modelos.ResenaPelicula;
 import com.cartaboxd.project.modelos.Usuario;
 import com.cartaboxd.project.repositorios.RepositorioAdministrador;
 import com.cartaboxd.project.repositorios.RepositorioLista;
@@ -70,6 +72,26 @@ public class Servicios {
 		return repoPelicula.findAll();
 	}//Muestra todas las peliculas
 
+	public List<Pelicula> peliculasPorNombre(String nombre){
+		return repoPelicula.findByNombre(nombre);
+	}//Buscar por nombre
+
+	public void actualizarCalificacionPromedio(){
+		Iterable<Pelicula> peliculas = repoPelicula.findAll();
+		for (Pelicula pelicula : peliculas) {
+			List<ResenaPelicula> reseñas = repoResena.findByPeliculaId(pelicula.getId());
+			float sum = 0;
+            for (ResenaPelicula reseña : reseñas) {
+                sum += reseña.getCalificacion();
+            }
+            if (!reseñas.isEmpty()) {
+                float promedio = sum / reseñas.size();
+                pelicula.setCalificacion(promedio);
+                repoPelicula.save(pelicula);
+            }
+		}
+	}
+
 	public Pelicula guardarPelicula(Pelicula nuevaPelicula){
 		return repoPelicula.save(nuevaPelicula);
 	}//Guarda una pelicula nueva
@@ -82,7 +104,9 @@ public class Servicios {
 		return repoPelicula.existsByNombre(nombre);
 	}
 	
-	
+	public Pelicula peliculaPorId(long id){
+		return repoPelicula.findById(id);
+	}
 	
 	// Servicios para usuarios
 	public List<Usuario> todosUsuarios(){
@@ -138,6 +162,21 @@ public class Servicios {
 		repoUsuarios.save(miUsuario);
 	}
 	
-	
+
+	// Servicios para Reseñas
+public ResenaPelicula guardarResena(ResenaPelicula nuevaResena, Long peliculaId) {
+    Pelicula peliculaResena = muestraPelicula(peliculaId);
+    nuevaResena.setPeliculaId(peliculaId); // Establecer el ID de la película en la reseña
+    return repoResena.save(nuevaResena);
+}
+
+public Pelicula muestraPelicula(Long id) {
+    return repoPelicula.findById(id).orElse(null);
+}
+
+public List<Pelicula> mejoresPeliculas(){
+	return repoPelicula.findByOrderByCalificacionDesc();
+}
+
 	
 }

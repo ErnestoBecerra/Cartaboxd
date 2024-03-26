@@ -1,13 +1,13 @@
 <%@page import="org.springframework.boot.autoconfigure.web.reactive.WebFluxAutoConfiguration.WelcomePageConfiguration"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Página principal</title>
+<title>Pï¿½gina principal</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
@@ -36,24 +36,24 @@
     				<p><h1>Cartaboxd</h1></p>
   				</blockquote>
   				<figcaption class="blockquote-footer">
-    				La mejor página para<cite title="Source Title"> Calificar películas</cite>
+    				La mejor pï¿½gina para<cite title="Source Title"> Calificar pelï¿½culas</cite>
   				</figcaption>
 			</figure>
 			
-			<p class="lh-1">¡Vive la experiencia completa! Comienza a utilizar nuestra página para crear un ambiente 
-			informativo con el fin de compartir tus experiencias cinematográficas con otros usuarios. 
+			<p class="lh-1">ï¿½Vive la experiencia completa! Comienza a utilizar nuestra pï¿½gina para crear un ambiente 
+			informativo con el fin de compartir tus experiencias cinematogrï¿½ficas con otros usuarios. 
 			</p>
-  			<h3 class="text-center">¡No lo pienses más!</h3>
-  			<p class="lh-1">Crea un perfil o inicia sesión para comenzar con esta interacción única.</p>
+  			<h3 class="text-center">ï¿½No lo pienses mï¿½s!</h3>
+  			<p class="lh-1">Crea un perfil o inicia sesiï¿½n para comenzar con esta interacciï¿½n ï¿½nica.</p>
   			
   			<div class="col-sm-6 mb-3 mb-sm-0">
     			<div class="card">
       				<div class="card-body">
         				<h5 class="card-title">Administradores</h5>
-        				<p class="card-text">Si deseas ingresar como administrador, empieza con esta opción, valida tus
+        				<p class="card-text">Si deseas ingresar como administrador, empieza con esta opciï¿½n, valida tus
         				credenciales y continua trabajando.
         				</p>
-        				<a href="/login-admin" class="btn btn-primary">Iniciar sesión</a>
+        				<a href="/login-admin" class="btn btn-primary">Iniciar sesiï¿½n</a>
       				</div>
    	 			</div>
   			</div>
@@ -61,16 +61,35 @@
     			<div class="card">
       				<div class="card-body">
         				<h5 class="card-title">Visitante</h5>
-        				<p class="card-text">Si deseas ingresar como vistante, empieza con esta opción, selecciona el
+        				<p class="card-text">Si deseas ingresar como vistante, empieza con esta opciï¿½n, selecciona el
         					campo de tu preferencia.
 						</p>
-        				<a href="/login-usuario" class="btn btn-primary">Iniciar sesión</a>
+        				<a href="/login-usuario" class="btn btn-primary">Iniciar sesiï¿½n</a>
         				<a href="/nuevo-usuario" class="btn btn-primary">Registrarse</a>
       				</div>
     			</div>
  	 		</div>
 
 		</div>
+
+		<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Nombre</th>
+						<th>Descripcion</th>
+						<th>Calificacion</th>						
+					</tr>
+				</thead>
+				<tbody>
+				<c:forEach items="${peliculas}" var="pelicula">
+					<tr>
+						<td>${pelicula.nombre}</td>
+						<td>${pelicula.descripcion}</td>
+						<td>${pelicula.calificacion}</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</table>
 	</div>
 </body>
 </html>

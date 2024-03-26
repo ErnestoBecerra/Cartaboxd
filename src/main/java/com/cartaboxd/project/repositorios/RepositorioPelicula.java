@@ -13,4 +13,10 @@ public interface RepositorioPelicula extends CrudRepository<Pelicula,Long> {
     Pelicula save(Pelicula nuevaPelicula);
 
     boolean existsByNombre(String nombre);
+
+    Pelicula findById(long id);
+
+    List<Pelicula> findByNombre(String nombre);
+
+    List<Pelicula> findByOrderByCalificacionDesc();
 }

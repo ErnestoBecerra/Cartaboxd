@@ -11,23 +11,21 @@
 </head>
 <body>
 	<div class="container">
-		<h1>Registrar Pelicula</h1>
+		<h1>Crear Reseña</h1>
 		<c:if test="${not empty error}">
         <div class="alert alert-danger" role="alert">
             ${error}
         </div>
     	</c:if>
-		<form:form action="/registrar-pelicula" method="POST" modelAttribute="pelicula" class="row g-3">
+		<form:form action="/registrar-resena" method="POST" modelAttribute="resenia" class="row g-3">
+            <form:hidden path="peliculaId" value="${pelicula.id}" />
+			<%-- Esto imprimirá el valor de ${pelicula.id} --%>
+<c:out value="${pelicula.id}" />
+
 			<div class="col-12">
-				<form:label path="nombre" class="form-label">Nombre</form:label>
-				<form:input path="nombre" class="form-control" placeholder="Ingrese nombre"/>
-				<form:errors path="nombre" class="text-danger"/>
-			</div>
-			
-			<div class="col-12">
-				<form:label path="descripcion" class="form-label">Descripcion</form:label>
-				<form:input path="descripcion" class="form-control" placeholder="Ingrese una breve descripcion"/>
-				<form:errors path="descripcion" class="text-danger"/>
+				<form:label path="resena" class="form-label">Reseña</form:label>
+				<form:input path="resena" class="form-control" placeholder="Escribe una reseña"/>
+				<form:errors path="resena" class="text-danger"/>
 			</div>
 			<div class="col-12">
 				<form:label path="calificacion" class="form-label">Calificacion</form:label>
@@ -36,7 +34,7 @@
 			</div>
 
 			<div class="col-12">
-    			<input type="submit" value="Agregar pelicula" class="btn btn-success mt-3">
+    			<input type="submit" value="Agregar reseña" class="btn btn-success mt-3">
   			</div>
 		</form:form>
 	</div>

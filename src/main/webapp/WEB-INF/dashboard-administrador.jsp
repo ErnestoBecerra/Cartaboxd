@@ -36,8 +36,8 @@
   				</blockquote>
 			</figure>
 			
-			<p class="lh-1">�Comienza ahora! Agrega, borra y edita las pel�culas que los usuarios podr�n visualizar en la 
-			p�gina principal. 
+			<p class="lh-1">Comienza ahora! Agrega, borra y edita las peliculas que los usuarios podran visualizar en la 
+			pagina principal. 
 			</p>
 			
 			<div class="col-12">
@@ -47,12 +47,32 @@
 			<table class="table table-hover">
 				<thead>
 					<tr>
-						<th>Id</th>
-						<th>Nombre Pelicula</th>
+						<th>Nombre</th>
 						<th>Descripcion</th>
+						<th>Calificacion</th>
+						<th>Editar</th>
+            			<th>Eliminar</th>						
 					</tr>
 				</thead>
-			</table>>
+				<tbody>
+				<c:forEach items="${peliculas}" var="pelicula">
+					<tr>
+						<td>${pelicula.nombre}</td>
+						<td>${pelicula.descripcion}</td>
+						<td>${pelicula.calificacion}</td>
+						<td>
+                			<a href="/editar-pelicula/${pelicula.id}" class="btn btn-primary">Editar</a>
+            			</td>
+            			<td>
+							<form action="/peliculas/${pelicula.id}" method="post">
+							    <input type="hidden" name="_method" value="DELETE">
+							    <button type="submit" class="btn btn-danger">Eliminar</button>
+							</form>            		
+						</td>
+					</tr>
+				</c:forEach>
+			</tbody>
+			</table>
 		</div>
 	</div>
 </body>
