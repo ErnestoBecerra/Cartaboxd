@@ -6,13 +6,13 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Sesión Usuario</title>
+<title>Sesión Administrador</title>
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
 	<div class="container">
-		<h1>Iniciar sesión usuario</h1>
-		<form:form action="/iniciar-sesion" method="POST" class="row g-3">
+		<h1>Iniciar sesión administrador</h1>
+		<form:form action="/iniciar-admin" method="POST" class="row g-3">
 			<div class="col-md-6">
 				<label class="form-label">Correo</label>
 				<input type="email" name="email" class="form-control" placeholder="Ingrese su correo"/>

@@ -3,7 +3,6 @@ package com.cartaboxd.project.modelos;
 import java.util.Date;
 
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;

@@ -32,16 +32,12 @@ public class Servicios {
 	@Autowired
 	private RepositorioResena repoResena;
 
+	
 	// Servicios para administradores
 	public List<Administrador> todosAdmins(){
 		return repoAdministradores.findAll();
 	}
 	
-	//public Administrador guardarAdmin(Administrador nuevoAdmin, Long pelicula_id) {
-	//	Pelicula peliculaAdmin = muestraPelicula(pelicula_id);
-	//	nuevoAdmin.setPelicula(peliculaAdmin);
-	//	return repoAdministradores.save(nuevoAdmin);
-	//}
 	
 	public Administrador guardarAdminFormulario(Administrador nuevoAdmin) {
 		return repoAdministradores.save(nuevoAdmin);
@@ -55,6 +51,21 @@ public class Servicios {
 		repoAdministradores.deleteById(id);
 	}
 	
+	public Administrador loginParaAdmin(String email, String password) {
+		Administrador adminInicioSesion = repoAdministradores.findByEmail(email);
+		if(adminInicioSesion == null) {
+			return null;
+		}else {
+			if(password.equals(adminInicioSesion.getContrasena())) {
+				return adminInicioSesion;
+			}else {
+				return null;
+			}
+		}
+	}
+	
+	
+	// Servicios para peliculas 
 	public List<Pelicula> todasPeliculas(){
 		return repoPelicula.findAll();
 	}//Muestra todas las peliculas
@@ -70,6 +81,8 @@ public class Servicios {
 	public boolean existePelicula(String nombre){
 		return repoPelicula.existsByNombre(nombre);
 	}
+	
+	
 	
 	// Servicios para usuarios
 	public List<Usuario> todosUsuarios(){
@@ -88,7 +101,20 @@ public class Servicios {
 		repoUsuarios.deleteById(id);
 	}
 	
-	
+	public Usuario login(String email, String password) {
+		Usuario usuarioInicioSesion = repoUsuarios.findByEmail(email);
+		
+		if(usuarioInicioSesion == null) {
+			return null;
+		}else {
+			if(password.equals(usuarioInicioSesion.getContrasena())) {
+				return usuarioInicioSesion;
+			}else {
+				return null;
+			}
+		}
+	}
+
 	
 	
 	// Servicios para Lista de peliculas

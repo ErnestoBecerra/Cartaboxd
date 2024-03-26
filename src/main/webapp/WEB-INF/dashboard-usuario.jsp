@@ -11,8 +11,39 @@
 </head>
 <body>
 	<div class="container">
-		<h1>¡Bienvenido a Cartaboxd!</h1>
-		<a href="/nueva-lista" class="btn btn-success">Agregar lista</a>
+		<div class="row">
+		<div class="col-md-12">
+				<nav class="navbar navbar-expand-lg">
+					<div class="navbar-brand">Cartaboxd</div>
+					<ul class="nav">
+						<li class="nav-item">
+							<a class="nav-link" href="/inicio">Inicio</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Acerca de</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link" href="#">Contacto</a>
+						</li>
+					</ul>
+				</nav>
+			</div>
+			
+			
+			<figure class="text-center">
+  				<blockquote class="blockquote">
+    				<p><h1>Bienvenid@ a Cartaboxd</h1></p>
+  				</blockquote>
+			</figure>
+			
+			<p class="lh-1">¡Comienza ahora! Comparte con otros tus ideas acerca de las películas que te resulten interesantes de comentar
+			no olvides que también puedes clasificar tus opiniones mediante la función de crear lista. ¡Diviertete! 
+			</p>
+			
+			<div class="col-12">
+    			<a href="/nueva-lista" class="btn btn-success">Agregar lista</a>
+  			</div>	
+		
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -30,6 +61,7 @@
 				</c:forEach>
 			</tbody>
 		</table>
+		</div>
 	</div>
 </body>
 </html>
