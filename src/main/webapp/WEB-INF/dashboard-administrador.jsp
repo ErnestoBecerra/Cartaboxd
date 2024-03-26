@@ -17,7 +17,7 @@
 					<div class="navbar-brand">Cartaboxd</div>
 					<ul class="nav">
 						<li class="nav-item">
-							<a class="nav-link" href="#">Inicio</a>
+							<a class="nav-link" href="/inicio">Inicio</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link" href="#">Acerca de</a>
@@ -41,7 +41,7 @@
 			</p>
 			
 			<div class="col-12">
-    			<input type="submit" value="Agregar Película" class="btn btn-success mt-3">
+    			<a href="#" class="btn btn-success">Agregar lista</a>
   			</div>	
 			
 			<table class="table table-hover">
