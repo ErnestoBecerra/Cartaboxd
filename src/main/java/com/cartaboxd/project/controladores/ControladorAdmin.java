@@ -58,6 +58,22 @@ public class ControladorAdmin {
 		return s.todasPeliculas();
 	}
 
+	@PostMapping("/registrar-pelicula")
+	public String crearPelicula(@Valid @ModelAttribute("pelicula") Pelicula pelicula,
+								BindingResult result) {
+		if(result.hasErrors()) {
+			return "create-pelicula.jsp";
+		} else {
+			s.guardarPelicula(pelicula);
+			return "redirect:/inicio-admin";
+		}
+	}
+	
+	@GetMapping("/nueva-pelicula")
+	public String nuevaPelicula(@ModelAttribute("pelicula") Pelicula pelicula) {
+		return "create-pelicula.jsp";
+	}
+
 	@PostMapping("/peliculas")
 	public Pelicula registrarPelicula(@RequestParam("nombre") String nombre,
 										@RequestParam("descripcion")String descripcion,

@@ -30,7 +30,6 @@ public class Pelicula {
 	@Size(min=3,max=200)
     private String descripcion;
 
-    @NotEmpty
     private float calificacion;
     
     @Column(updatable=false)

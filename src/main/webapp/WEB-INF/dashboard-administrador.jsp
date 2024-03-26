@@ -36,12 +36,12 @@
   				</blockquote>
 			</figure>
 			
-			<p class="lh-1">¡Comienza ahora! Agrega, borra y edita las películas que los usuarios podrán visualizar en la 
-			página principal. 
+			<p class="lh-1">ï¿½Comienza ahora! Agrega, borra y edita las pelï¿½culas que los usuarios podrï¿½n visualizar en la 
+			pï¿½gina principal. 
 			</p>
 			
 			<div class="col-12">
-    			<a href="#" class="btn btn-success">Agregar lista</a>
+    			<a href="/nueva-pelicula" class="btn btn-success">Agregar pelicula</a>
   			</div>	
 			
 			<table class="table table-hover">
@@ -49,7 +49,7 @@
 					<tr>
 						<th>Id</th>
 						<th>Nombre Pelicula</th>
-						<th>Acciones</th>
+						<th>Descripcion</th>
 					</tr>
 				</thead>
 			</table>>
